@@ -14,11 +14,11 @@
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118610548-1"></script>
 		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		  gtag('config', 'UA-118610548-1');
-			ga('send', 'pageview', location.pathname);
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('send', 'pageview', location.pathname);
+			gtag('config', 'UA-118610548-1');
 		</script>
 	</head>
 	<body>
@@ -34,7 +34,7 @@
 								<li><h1>Avertu</h1></li>
 								<li style="color: #999999; vertical-align:bottom; margin: 0 0 1.4rem 0;">
 									<a style="color: #999999; text-decoration: none;" href="../de/">DE</a>&ensp;|&ensp;
-									<a style="font-weight: 400; color: #777777; text-decoration: none;" href="../fr/">FR</a>&ensp;|&ensp;
+									<a style="font-weight: 400; color: #777777; text-decoration: none;" href="#">FR</a>&ensp;|&ensp;
 									<a style="color: #999999; text-decoration: none;" href="../it/">IT</a>&ensp;|&ensp;
 									<a style="color: #999999; text-decoration: none;" href="../en/">EN</a>
 								</li>
@@ -85,8 +85,20 @@
 						</div>
 					</section>
 
+					<section class="spotlight style1 orient-right content-align-left image-position-left">
+						<div class="content">
+							<h2>Notre carte des zones a risque pour accident</h2>
+							<p class="major"><b style="color: #039be5">Avons-nous oublié un endroit dangereux?</b></br>
+								Faits-nous-le savoir en envoyant un courriel à <a href="mailto:info@avertu.ch" style="color:#1F78C5">info@avertu.ch</a>!</p>
+							<h3 style="color: #039be5"><a href="./map/">Cliquez ici pour voir une version agrandie</a></h3>
+						</div>
+						<div class="image">
+							<div id="map" style="height:100%; min-height: 50vh; width:100%"></div>
+						</div>
+					</section>
+
 					<!-- Four -->
-						<section class="spotlight style1 orient-right content-align-left image-position-center" style="background-color: #FCFCFC">
+						<section class="spotlight style1 orient-left content-align-left image-position-center" style="background-color: #FCFCFC">
 							<div class="content">
 								<h2>Né au Laboratoire Bosch IoT</h2>
 								<p>Dirigé par le Prof. Dr. Elgar Fleisch et Ass. Prof. Felix Wortmann, le laboratoire Bosch Internet of Things est une coopération entre l'Université de Saint-Gall, l’ETH Zurich et le groupe Bosch. Le laboratoire Bosch IoT explore de nouveaux produits IoT et domaines d'activité, en mettant l'accent sur la mobilité, les modes de vie et de travail durables, la technologie blockchain et les modèles économiques IoT</p>
@@ -136,7 +148,7 @@
 						<div class="inner medium">
 							<p><a href="https://play.google.com/store/apps/details?id=boschiot.ahw" class="button special small">Téléchargez notre application Android!</a></p></br>
 							<h2>Vous souhaitez nous contacter?</h2>
-							<p class=major>Envoyez-nous un mail à: <a href="mailto:infor@avertu.ch" style="color:#1F78C5">info@avertu.ch</a></p>
+							<p class=major>Envoyez-nous un mail à: <a href="mailto:info@avertu.ch" style="color:#1F78C5">info@avertu.ch</a></p>
 						</div>
 					</section>
 
@@ -166,6 +178,146 @@
 			<script src="../assets/js/skel.min.js"></script>
 			<script src="../assets/js/util.js"></script>
 			<script src="../assets/js/main.js"></script>
+			<script>
+				var map;
+	      var markers = [];
+				function initMap() {
+					map = new google.maps.Map(document.getElementById('map'), {
+						center: {
+							lat: 47.382169,
+							lng: 8.543667
+						},
+						zoom: 13
+					});
+					loadWarnings();
+					google.maps.event.addListener(map, 'zoom_changed', function() {
+						var zoom = map.getZoom();
+						console.log(zoom);
+						deleteMarkers();
+						loadWarnings();
+					});
+				};
 
+				function loadWarnings() {
+					var zoom = map.getZoom();
+					if (zoom > 14) {
+						zoom = 14;
+					}
+					if (zoom < 10){
+						zoom = 10;
+					}
+					var iconBase = '../../images/warnings/';
+					var icons = {
+						Animal: {
+							icon: iconBase + zoom + '/warning_animal.png'
+						},
+						Bikes: {
+							icon: iconBase + zoom + '/warning_bikes.png'
+						},
+						Bus: {
+							icon: iconBase + zoom + '/warning_bus.png'
+						},
+						Bus_Stop: {
+							icon: iconBase + zoom + '/warning_bus.png'
+						},
+						Crossroad_1: {
+							icon: iconBase + zoom + '/warning_cross_road_1.png'
+						},
+						Crossroad_2: {
+							icon: iconBase + zoom + '/warning_cross_road_2.png'
+						},
+						Crosswalk: {
+							icon: iconBase + zoom + '/warning_cross_walk.png'
+						},
+						Curve: {
+							icon: iconBase + zoom + '/warning_curve.png'
+						},
+						Cyclist: {
+							icon: iconBase + zoom + '/warning_cyclist.png'
+						},
+						Front_End: {
+							icon: iconBase + zoom + '/warning_front_end.png'
+						},
+						General: {
+							icon: iconBase + zoom + '/warning_general.png'
+						},
+						Lane_Change: {
+							icon: iconBase + zoom + '/warning_lane_change.png'
+						},
+						Motorcycle: {
+							icon: iconBase + zoom + '/warning_motorcycle.png'
+						},
+						Parking: {
+							icon: iconBase + zoom + '/warning_parking.png'
+						},
+						Pedestrian: {
+							icon: iconBase + zoom + '/warning_pedestrian.png'
+						},
+						Rail_Crossing_1: {
+							icon: iconBase + zoom + '/warning_rail_crossing_1.png'
+						},
+						Rail_Crossing_2: {
+							icon: iconBase + zoom + '/warning_rail_crossing_2.png'
+						},
+						Rear_End: {
+							icon: iconBase + zoom + '/warning_rear_end.png'
+						},
+						Roundabout: {
+							icon: iconBase + zoom + '/warning_roundabout.png'
+						},
+						Swerving: {
+							icon: iconBase + zoom + '/warning_swerving.png'
+						},
+						Traffic_Light: {
+							icon: iconBase + zoom + '/warning_traffic_light.png'
+						},
+						Tram: {
+							icon: iconBase + zoom + '/warning_tram.png'
+						},
+						Truck: {
+							icon: iconBase + zoom + '/warning_truck.png'
+						},
+						Tunnel: {
+							icon: iconBase + zoom + '/warning_tunnel.png'
+						}
+					}
+
+					$.getJSON("../../assets/AccidentHotspots.json", function (json1) {
+						$.each(json1, function (key1, json2) {
+							$.each(json2, function (key2, data) {
+								//console.log(data)
+								var latLng = new google.maps.LatLng(data.Lat, data.Lon);
+								// Creating a marker and putting it on the map
+								var marker = new google.maps.Marker({
+									position: latLng,
+									title: data.title,
+									icon: icons[data.Type].icon,
+									map: map
+								});
+								markers.push(marker);
+							});
+						});
+					});
+				};
+
+				// Sets the map on all markers in the array.
+				function setMapOnAll(map) {
+					for (var i = 0; i < markers.length; i++) {
+						markers[i].setMap(map);
+					}
+				};
+
+	      // Removes the markers from the map, but keeps them in the array.
+	      function clearMarkers() {
+	        setMapOnAll(null);
+	      };
+
+	      // Deletes all markers in the array by removing references to them.
+	      function deleteMarkers() {
+	        clearMarkers();
+	        markers = [];
+	      };
+			</script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMl2NBxgiaABVqfsO0pG-GhfU8E4xrXCY&callback=initMap" async="async" defer="defer"></script>
 	</body>
 </html>

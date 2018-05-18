@@ -8,17 +8,14 @@
 		<link rel="stylesheet" href="../../assets/css/main.css"/>
 		<link rel="icon" href="../../images/icon.png">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-118610548-1"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118610548-1"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
+			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
+			gtag('send', 'pageview', location.pathname);
 			gtag('config', 'UA-118610548-1');
-			ga('send', 'pageview', location.pathname);
-		</script>
-	</head>
+		</script>	</head>
 	<body>
 
 		<!-- Wrapper -->
@@ -498,6 +495,5 @@
 		<script src="../assets/js/skel.min.js"></script>
 		<script src="../assets/js/util.js"></script>
 		<script src="../assets/js/main.js"></script>
-
 	</body>
 </html>
