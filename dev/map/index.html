@@ -94,8 +94,8 @@
 				function initMap() {
 					map = new google.maps.Map(document.getElementById('map'), {
 						center: {
-							lat: 47.382169,
-							lng: 8.543667
+							lat: 48.7758,
+							lng: 9.1829
 						},
 						zoom: 13
 					});
@@ -192,7 +192,7 @@
 						}
 					}
 
-					$.getJSON("../../assets/AccidentHotspots.json", function (json1) {
+					$.getJSON("../../assets/AccidentHotspotsDE.json", function (json1) {
 						$.each(json1, function (key1, json2) {
 							$.each(json2, function (key2, data) {
 								//console.log(data)
@@ -228,6 +228,6 @@
 	        markers = [];
 	      };
 			</script>
-			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMl2NBxgiaABVqfsO0pG-GhfU8E4xrXCY&callback=initMap" async="async" defer="defer"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMl2NBxgiaABVqfsO0pG-GhfU8E4xrXCY&callback=initMap&v=3.33" async="async" defer="defer"></script>
 		</body>
 	</html>
